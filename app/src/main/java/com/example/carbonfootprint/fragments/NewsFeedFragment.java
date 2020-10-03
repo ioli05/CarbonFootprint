@@ -46,13 +46,12 @@ public class NewsFeedFragment extends Fragment {
     }
 
     private void initFields() {
-
-        ArrayList<NewsfeedModel> arrayOfUsers = new ArrayList<>();
-        NewsfeedAdapter adapter = new NewsfeedAdapter(getActivity(), arrayOfUsers);
+        ArrayList<NewsfeedModel> arrayOfRoutes = new ArrayList<>();
+        NewsfeedAdapter adapter = new NewsfeedAdapter(getActivity(), arrayOfRoutes);
 
         DatabaseService databaseService = DatabaseService.getInstance();
         databaseService.setAddRouteListener(newsfeedModel -> {
-            arrayOfUsers.add(newsfeedModel);
+            arrayOfRoutes.add(newsfeedModel);
             adapter.notifyDataSetChanged();
         });
 
@@ -67,7 +66,7 @@ public class NewsFeedFragment extends Fragment {
                             for(DocumentSnapshot document : myListOfDocuments){
                                 NewsfeedModel newsfeedModel = document.toObject(NewsfeedModel.class);
 
-                                arrayOfUsers.add(newsfeedModel);
+                                arrayOfRoutes.add(newsfeedModel);
                                 Log.d(TAG, "onComplete: " + document);
                             }
 
@@ -77,8 +76,5 @@ public class NewsFeedFragment extends Fragment {
                         }
                     }
                 });
-
-        // Attach the adapter to a ListView
-
     }
 }

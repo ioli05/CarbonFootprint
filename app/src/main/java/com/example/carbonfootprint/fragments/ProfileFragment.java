@@ -1,45 +1,39 @@
 package com.example.carbonfootprint.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.example.carbonfootprint.R;
 import com.example.carbonfootprint.activities.LoginActivity;
+import com.example.carbonfootprint.adapter.NewsfeedAdapter;
 import com.example.carbonfootprint.helpers.Auth;
+import com.example.carbonfootprint.model.NewsfeedModel;
+import com.example.carbonfootprint.services.DatabaseService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -52,6 +46,41 @@ public class ProfileFragment extends Fragment {
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             Log.d(TAG, "Travel");
             View view = inflater.inflate(R.layout.fragment_profile_travel, container, false);
+
+            ArrayList<NewsfeedModel> arrayOfRoutes = new ArrayList<>();
+            NewsfeedAdapter adapter = new NewsfeedAdapter(getActivity(), arrayOfRoutes);
+
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(view.getContext());
+
+            DatabaseService databaseService = DatabaseService.getInstance();
+            databaseService.setAddRouteListener(newsfeedModel -> {
+                arrayOfRoutes.add(newsfeedModel);
+                adapter.notifyDataSetChanged();
+            });
+
+            String username = acct.getDisplayName();
+            FirebaseFirestore.getInstance()
+                    .collection("Routes")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
+                                for(DocumentSnapshot document : myListOfDocuments){
+                                    NewsfeedModel newsfeedModel = document.toObject(NewsfeedModel.class);
+
+                                    if(newsfeedModel.getName().equals(username)){
+                                        arrayOfRoutes.add(newsfeedModel);
+                                    }
+                                }
+
+                                adapter.notifyDataSetChanged();
+                                ListView listView = getActivity().findViewById(R.id.list_profile);
+                                listView.setAdapter(adapter);
+                            }
+                        }
+                    });
 
             return view;
         }
