@@ -11,7 +11,7 @@ import com.example.carbonfootprint.helpers.Auth;
 
 public class SetupActivity extends AppCompatActivity {
 
-    private Button signOutBtn;
+    private Button nextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,19 +19,12 @@ public class SetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setup);
         findActivityViews();
 
-        signOutBtn.setOnClickListener(view -> Auth.signOut(this));
+        Intent intent = new Intent(this, ProfileActivity.class);
+        nextBtn.setOnClickListener(view -> startActivity(intent));
     }
 
     private void findActivityViews() {
-        signOutBtn = findViewById(R.id.sign_out_btn);
+        nextBtn = findViewById(R.id.next_btn);
     }
 
-    public void updateUI() {
-        if (!Auth.isUserSignedIn()) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        }
-    }
 }

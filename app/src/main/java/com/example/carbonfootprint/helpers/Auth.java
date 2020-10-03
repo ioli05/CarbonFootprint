@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.carbonfootprint.activities.LoginActivity;
 import com.example.carbonfootprint.R;
+import com.example.carbonfootprint.activities.ProfileActivity;
 import com.example.carbonfootprint.activities.SetupActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -76,7 +77,7 @@ public class Auth {
         }
     }
 
-    public static void signOut(SetupActivity activity) {
+    public static void signOut(ProfileActivity activity) {
         mAuth.signOut();
         gsClient.signOut().addOnCompleteListener(activity, task -> activity.updateUI());
     }
