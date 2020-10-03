@@ -3,6 +3,7 @@
     <color name="colorPrimary">#379683</color>
     <color name="colorPrimaryDark">#006756</color>
     <color name="colorAccent">#05387B</color>
+    <color name="colorFaded">#6bc7b2</color>
     <color name="crem">#EDF5E1</color>
     <color name="mint">#379683</color>
 </resources>

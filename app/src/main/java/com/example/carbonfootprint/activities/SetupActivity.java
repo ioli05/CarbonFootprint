@@ -1,18 +1,15 @@
 package com.example.carbonfootprint.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.carbonfootprint.R;
-import com.example.carbonfootprint.helpers.Auth;
 import com.example.carbonfootprint.tabset.MainActivity;
 
 public class SetupActivity extends AppCompatActivity {
