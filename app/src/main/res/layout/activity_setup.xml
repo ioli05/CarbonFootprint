@@ -4,12 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
     tools:context=".activities.SetupActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What is the fuel type of your car?" />
+
+    <RadioGroup
+        android:id="@+id/fuel_type_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/fuel_type_checked">
+
+        <RadioButton
+            android:id="@+id/fuel_type_rg_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Petrol" />
+
+        <RadioButton
+            android:id="@+id/fuel_type_rg_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Diesel" />
+
+        <RadioButton
+            android:id="@+id/fuel_type_rg_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Hybrid" />
+
+        <RadioButton
+            android:id="@+id/fuel_type_rg_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Electric" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What size is your car?"
+        android:layout_marginTop="12dp"/>
+
+    <RadioGroup
+        android:id="@+id/car_size_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/car_size_checked">
+
+        <RadioButton
+            android:id="@+id/car_size__rg_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Compact" />
+
+        <RadioButton
+            android:id="@+id/car_size__rg_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Medium" />
+
+        <RadioButton
+            android:id="@+id/car_size__rg_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Minivan" />
+
+        <RadioButton
+            android:id="@+id/car_size__rg_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="SUV" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What was your electricity consumption last month (kWh)?"
+        android:layout_marginTop="12dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/electricity_et"
+        android:inputType="number"
+        android:autofillHints="Electricity consumption (kWh)" />
+
     <Button
+        android:id="@+id/next_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/next_btn"
-        android:text="Next"/>
+        android:layout_marginTop="12dp"
+        android:text="Next" />
 
 </LinearLayout>
