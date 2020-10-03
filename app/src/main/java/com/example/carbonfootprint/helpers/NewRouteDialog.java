@@ -2,9 +2,7 @@ package com.example.carbonfootprint.helpers;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,16 +16,8 @@ import com.example.carbonfootprint.model.NewsfeedModel;
 import com.example.carbonfootprint.services.DatabaseService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
-
-import static java.util.Objects.isNull;
 
 public class NewRouteDialog extends Dialog implements View.OnClickListener {
 
@@ -89,20 +79,6 @@ public class NewRouteDialog extends Dialog implements View.OnClickListener {
         }
         dismiss();
     }
-
-    public static String random() {
-        Random generator = new Random();
-        StringBuilder randomStringBuilder = new StringBuilder();
-        int randomLength = generator.nextInt(32);
-        char tempChar;
-        for (int i = 0; i < randomLength; i++){
-            tempChar = (char) (generator.nextInt(96) + 32);
-            randomStringBuilder.append(tempChar);
-        }
-        return randomStringBuilder.toString();
-    }
-
-
 
     public void setAddRouteListener(AddRouteListener addRouteListener) {
         this.addRouteListener = addRouteListener;

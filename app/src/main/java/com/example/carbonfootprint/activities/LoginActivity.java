@@ -10,7 +10,9 @@ import android.widget.Toast;
 
 import com.example.carbonfootprint.R;
 import com.example.carbonfootprint.helpers.Auth;
+import com.example.carbonfootprint.tabset.MainActivity;
 import com.google.android.gms.common.SignInButton;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,9 +25,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Auth.setup(this);
-        updateUI();
-
         findActivityViews();
+        updateUI();
 
         googleSignInBtn.setOnClickListener(view -> {
             Auth.signInWithGoogle(this);
@@ -46,10 +47,26 @@ public class LoginActivity extends AppCompatActivity {
 
     public void updateUI() {
         if (Auth.isUserSignedIn()) {
-            Intent intent = new Intent(this, SetupActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+
+            progressDialog.setMessage("Signing in. Please wait...");
+            progressDialog.show();
+
+            FirebaseFirestore.getInstance()
+                    .collection("Users")
+                    .document(Auth.getCurrentUser().getUid())
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        Intent intent;
+                        if (task.isSuccessful() && task.getResult().getData() != null) {
+                            intent = new Intent(this, MainActivity.class);
+                        } else {
+                            intent = new Intent(this, SetupActivity.class);
+                        }
+                        dismissProgressDialog();
+                        startActivity(intent);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        finish();
+                    });
         }
     }
 

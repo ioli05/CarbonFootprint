@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.carbonfootprint.R;
+import com.example.carbonfootprint.model.UserModel;
+import com.example.carbonfootprint.services.DatabaseService;
 import com.example.carbonfootprint.tabset.MainActivity;
 
 public class SetupActivity extends AppCompatActivity {
@@ -29,8 +31,10 @@ public class SetupActivity extends AppCompatActivity {
             String fuelType = getCheckedOptionFuelType(fuelTypeRg.getCheckedRadioButtonId());
             String carSize = getCheckedOptionCarSize(carSizeRg.getCheckedRadioButtonId());
             int electricity = Integer.parseInt(electricityEt.getText().toString());
-            Toast.makeText(this, "TODO: Use values\n" + fuelType + " ; " + carSize + " ; " + electricity, Toast.LENGTH_SHORT).show();
 
+            DatabaseService.getInstance().writeNewUserData(new UserModel(carSize, fuelType, electricity));
+
+            Toast.makeText(this, "Awesome! This was the first step in making your footprint greener", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         });
