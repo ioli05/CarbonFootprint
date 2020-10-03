@@ -87,8 +87,8 @@ public class ProfileFragment  extends Fragment {
         if (acct != null) {
             String personName = acct.getDisplayName();
             Uri personPhoto = acct.getPhotoUrl();
-            Picasso.with(getActivity()).setLoggingEnabled(true);
-            Picasso.with(getActivity()).load(personPhoto).into(profilePicture);
+            Picasso.get().setLoggingEnabled(true);
+            Picasso.get().load(personPhoto).into(profilePicture);
             Log.d(TAG, "onCreateView: " + personPhoto + " " + personName);
 
             fullname.setText(personName);
