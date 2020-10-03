@@ -1,6 +1,7 @@
 package com.example.carbonfootprint.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +16,27 @@ import com.example.carbonfootprint.adapter.LeaderboardAdapter;
 import com.example.carbonfootprint.adapter.NewsfeedAdapter;
 import com.example.carbonfootprint.model.LeaderboardModel;
 import com.example.carbonfootprint.model.NewsfeedModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LeaderboardFragment extends Fragment {
 
     private ArrayList<LeaderboardModel> leaderboardModelArrayListTravel;
+
+    LeaderboardAdapter adapter;
+    private static final String TAG = "LeaderboardFragment";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,23 +53,53 @@ public class LeaderboardFragment extends Fragment {
 
     private void initFields() {
         leaderboardModelArrayListTravel = new ArrayList<>();
+        adapter = new LeaderboardAdapter(this.getActivity(), leaderboardModelArrayListTravel);
 
-        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//        leaderboardModelArrayListTravel.add(new LeaderboardModel(sdf.format(timestamp), "Tamara", 10, "Car", 10.7f, "", ""));
-//        leaderboardModelArrayListTravel.add(new LeaderboardModel(sdf.format(timestamp), "Tudor", 20, "Car", 6.7f), "", "");
-//        leaderboardModelArrayListTravel.add(new LeaderboardModel(sdf.format(timestamp), "Vlad", 16.5f, "Bus", 9.7f, ));
-//        leaderboardModelArrayListTravel.add(new LeaderboardModel( sdf.format(timestamp),"Diana", 8.7f, "Car", 15.7f));
-//        leaderboardModelArrayListTravel.add(new LeaderboardModel(sdf.format(timestamp),"Ionela", 4.5f, "Train", 20.7f));
-//        leaderboardModelArrayListTravel.add(new LeaderboardModel( sdf.format(timestamp),"Razvan", 6f, "Car", 5.7f));
+        getDataFromDatabase();
 
 
-        Collections.sort(leaderboardModelArrayListTravel, (o1, o2) -> o1.getDistance() > o2.getDistance() ? -1 : 1);
+        //Collections.sort(leaderboardModelArrayListTravel, (o1, o2) -> o1.getDistance() > o2.getDistance() ? -1 : 1);
 
-        LeaderboardAdapter adapter = new LeaderboardAdapter(this.getActivity(), leaderboardModelArrayListTravel);
 
         // Attach the adapter to a ListView
         ListView listView = this.getView().findViewById(R.id.listLeaderboard);
         listView.setAdapter(adapter);
+    }
+
+    private void getDataFromDatabase() {
+
+        Map<String, LeaderboardModel> map = new HashMap<>();
+
+        FirebaseFirestore.getInstance()
+                .collection("Routes")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
+                        for(DocumentSnapshot document : myListOfDocuments){
+                            LeaderboardModel newsfeedModel = document.toObject(LeaderboardModel.class);
+
+                            if (!map.containsKey(newsfeedModel.getName())) {
+                                map.put(newsfeedModel.getName(), newsfeedModel);
+                            }
+                            else {
+                                LeaderboardModel model = map.get(newsfeedModel.getName());
+                                model.setDistance(model.getDistance() + newsfeedModel.getDistance());
+                                model.setCarbonScore(model.getCarbonScore() + newsfeedModel.getCarbonScore());
+                                map.put(newsfeedModel.getName(), model);
+                            }
+
+                            Log.d(TAG, "onComplete: " + document);
+                        }
+                        for (String name : map.keySet()) {
+                            leaderboardModelArrayListTravel.add(map.get(name));
+                        }
+
+                        adapter.notifyDataSetChanged();
+                        ListView listView = getView().findViewById(R.id.listLeaderboard);
+                        listView.setAdapter(adapter);
+                    }
+                });
+
     }
 }

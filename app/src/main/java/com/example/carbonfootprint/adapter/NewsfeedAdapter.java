@@ -41,7 +41,7 @@ public class NewsfeedAdapter extends ArrayAdapter<NewsfeedModel> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.newsfeed_list, parent, false);
         }
         // Lookup view for data population
-        CircleImageView profilePicture = convertView.findViewById(R.id.imageNewsFeed);
+        CircleImageView profilePicture = convertView.findViewById(R.id.image);
         TextView name = convertView.findViewById(R.id.nameNewsFeed);
         TextView date = convertView.findViewById(R.id.date);
         TextView distance = convertView.findViewById(R.id.distance);

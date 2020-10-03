@@ -13,8 +13,11 @@ import androidx.fragment.app.Fragment;
 import com.example.carbonfootprint.R;
 import com.example.carbonfootprint.model.LeaderboardModel;
 import com.example.carbonfootprint.model.NewsfeedModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LeaderboardAdapter extends ArrayAdapter<LeaderboardModel> {
     ArrayList<LeaderboardModel> leaderboardModelArrayList;
@@ -35,6 +38,7 @@ public class LeaderboardAdapter extends ArrayAdapter<LeaderboardModel> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.leaderboard_list, parent, false);
         }
         // Lookup view for data population
+        CircleImageView image = convertView.findViewById(R.id.image);
         TextView name = convertView.findViewById(R.id.nameNewsFeed);
         TextView date = convertView.findViewById(R.id.date);
         TextView distance = convertView.findViewById(R.id.distance);
@@ -43,6 +47,9 @@ public class LeaderboardAdapter extends ArrayAdapter<LeaderboardModel> {
         Button badge = convertView.findViewById(R.id.badge);
 
         // Populate the data into the template view using the data object
+        String personPhoto = model.getPhotoURI();
+        Picasso.get().setLoggingEnabled(true);
+        Picasso.get().load(personPhoto).into(image);
         name.setText(model.getName());
         date.setText(model.getDate());
         distance.setText(String.valueOf(model.getDistance()) + " km");
