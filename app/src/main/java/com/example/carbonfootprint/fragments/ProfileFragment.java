@@ -1,5 +1,6 @@
 package com.example.carbonfootprint.fragments;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +29,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.carbonfootprint.R;
+import com.example.carbonfootprint.activities.LoginActivity;
+import com.example.carbonfootprint.helpers.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,10 +43,10 @@ import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileFragment  extends Fragment {
+public class ProfileFragment extends Fragment {
     private static final String TAG = "ProfileFragment";
 
-    public static class ProfileTravelFragment extends Fragment{
+    public static class ProfileTravelFragment extends Fragment {
         @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,6 +85,9 @@ public class ProfileFragment  extends Fragment {
         CircleImageView profilePicture = view.findViewById(R.id.profile_image);
         TextView fullname = view.findViewById(R.id.full_name);
 
+        Button signOutBtn = view.findViewById(R.id.sign_out_profile);
+        signOutBtn.setOnClickListener(btn -> Auth.signOut(this));
+
         openFragment(new ProfileTravelFragment());
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
@@ -98,7 +105,7 @@ public class ProfileFragment  extends Fragment {
             // menu should be considered as top level destinations.
 
             navView.setOnNavigationItemSelectedListener(menuItem -> {
-                switch(menuItem.getItemId()) {
+                switch (menuItem.getItemId()) {
                     case R.id.navigation_profile_travel:
                         openFragment(new ProfileTravelFragment());
                         return true;
@@ -132,4 +139,14 @@ public class ProfileFragment  extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+    public void updateUI() {
+        if (!Auth.isUserSignedIn()) {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            getActivity().finish();
+        }
+    }
+
 }
