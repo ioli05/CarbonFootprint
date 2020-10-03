@@ -1,8 +1,10 @@
 package com.example.carbonfootprint.model;
 
+import java.util.Date;
+
 public class NewsfeedModel {
 
-    private String date;
+    private Date timestamp;
     private String name;
     private double distance;
     private String type;
@@ -13,8 +15,8 @@ public class NewsfeedModel {
     public NewsfeedModel() {
 
     }
-    public NewsfeedModel(String date, String name, double distance, String type, double carbonScore, String photoURI, String userId) {
-        this.date = date;
+    public NewsfeedModel(Date timestamp, String name, double distance, String type, double carbonScore, String photoURI, String userId) {
+        this.timestamp = timestamp;
         this.name = name;
         this.distance = distance;
         this.type = type;
@@ -39,12 +41,12 @@ public class NewsfeedModel {
         this.userId = userId;
     }
 
-    public String getDate() {
-        return date;
+    public Date getTimestamp() {
+        return timestamp;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getName() {

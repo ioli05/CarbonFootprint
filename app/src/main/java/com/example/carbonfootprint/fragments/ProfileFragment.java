@@ -20,6 +20,7 @@ import com.example.carbonfootprint.R;
 import com.example.carbonfootprint.activities.LoginActivity;
 import com.example.carbonfootprint.adapter.NewsfeedAdapter;
 import com.example.carbonfootprint.helpers.Auth;
+import com.example.carbonfootprint.helpers.NewsfeedModelComparator;
 import com.example.carbonfootprint.model.NewsfeedModel;
 import com.example.carbonfootprint.services.DatabaseService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -33,6 +34,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -75,6 +77,7 @@ public class ProfileFragment extends Fragment {
                                     }
                                 }
 
+                                Collections.sort(arrayOfRoutes, new NewsfeedModelComparator());
                                 adapter.notifyDataSetChanged();
                                 ListView listView = getActivity().findViewById(R.id.list_profile);
                                 listView.setAdapter(adapter);

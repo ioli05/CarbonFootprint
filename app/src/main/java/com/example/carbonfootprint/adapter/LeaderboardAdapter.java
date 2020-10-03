@@ -51,7 +51,7 @@ public class LeaderboardAdapter extends ArrayAdapter<LeaderboardModel> {
         Picasso.get().setLoggingEnabled(true);
         Picasso.get().load(personPhoto).into(image);
         name.setText(model.getName());
-        date.setText(model.getDate());
+        date.setText(model.getTimestamp().toString());
         distance.setText(String.valueOf(model.getDistance()) + " km");
         type.setText(model.getType());
 

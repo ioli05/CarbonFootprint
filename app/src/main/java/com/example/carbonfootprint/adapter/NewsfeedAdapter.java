@@ -53,7 +53,7 @@ public class NewsfeedAdapter extends ArrayAdapter<NewsfeedModel> {
         Picasso.get().setLoggingEnabled(true);
         Picasso.get().load(personPhoto).into(profilePicture);
         name.setText(model.getName());
-        date.setText(model.getDate());
+        date.setText(model.getTimestamp().toString());
         distance.setText(String.valueOf(model.getDistance()) + " km");
         type.setText(model.getType());
         carbonScore.setText(String.valueOf(model.getCarbonScore()));

@@ -21,8 +21,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import static java.util.Objects.isNull;
@@ -72,10 +74,9 @@ public class NewRouteDialog extends Dialog implements View.OnClickListener {
                 double distance = Double.parseDouble(distanceEt.getText().toString());
 
                 double carbonScore = calculateCarbonScore(transportType, distance);
-                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
+                Date timestamp = new Date(System.currentTimeMillis());
 
-                NewsfeedModel routeDetails = new NewsfeedModel(sdf.format(timestamp), personName, distance, transportType, carbonScore, personPhoto, userId);
+                NewsfeedModel routeDetails = new NewsfeedModel(timestamp, personName, distance, transportType, carbonScore, personPhoto, userId);
 
                 databaseService.writeNewRoute(routeDetails);
                 Toast.makeText(c, transportType + " , " + distance, Toast.LENGTH_SHORT).show();

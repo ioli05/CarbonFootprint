@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.carbonfootprint.R;
 import com.example.carbonfootprint.adapter.NewsfeedAdapter;
 import com.example.carbonfootprint.helpers.NewRouteDialog;
+import com.example.carbonfootprint.helpers.NewsfeedModelComparator;
 import com.example.carbonfootprint.listeners.AddRouteListener;
 import com.example.carbonfootprint.model.NewsfeedModel;
 import com.example.carbonfootprint.services.DatabaseService;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.model.Document;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NewsFeedFragment extends Fragment {
@@ -70,6 +72,7 @@ public class NewsFeedFragment extends Fragment {
                                 Log.d(TAG, "onComplete: " + document);
                             }
 
+                            Collections.sort(arrayOfRoutes, new NewsfeedModelComparator());
                             adapter.notifyDataSetChanged();
                             ListView listView = getView().findViewById(R.id.list);
                             listView.setAdapter(adapter);
