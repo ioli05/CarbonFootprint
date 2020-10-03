@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "383660618290",
+    "firebase_url": "https://carbonfun-2020.firebaseio.com",
+    "project_id": "carbonfun-2020",
+    "storage_bucket": "carbonfun-2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383660618290:android:1723670e1b9c23af62022b",
+        "android_client_info": {
+          "package_name": "com.example.carbonfootprint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "383660618290-guv2h4tfiio9aci90int17qdmbd0s0ui.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.carbonfootprint",
+            "certificate_hash": "7be64f7bef31df3486556464313bd2562ee6e403"
+          }
+        },
+        {
+          "client_id": "383660618290-p2ojhip28aeedjigrb3omsbnb1jovki2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDomL7FC9jXznA_Ih5a5yxECM_madUeH0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "383660618290-p2ojhip28aeedjigrb3omsbnb1jovki2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
