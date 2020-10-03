@@ -23,7 +23,7 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageNewsFeed"
+                android:id="@+id/image"
                 android:layout_width="60dp"
                 android:paddingLeft="3dp"
                 android:paddingTop="3dp"
