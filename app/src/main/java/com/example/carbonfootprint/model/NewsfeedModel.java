@@ -10,6 +10,9 @@ public class NewsfeedModel {
     private String photoURI;
     private String userId;
 
+    public NewsfeedModel() {
+
+    }
     public NewsfeedModel(String date, String name, double distance, String type, double carbonScore, String photoURI, String userId) {
         this.date = date;
         this.name = name;
@@ -56,7 +59,7 @@ public class NewsfeedModel {
         return distance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
@@ -72,7 +75,7 @@ public class NewsfeedModel {
         return carbonScore;
     }
 
-    public void setCarbonScore(float carbonScore) {
+    public void setCarbonScore(double carbonScore) {
         this.carbonScore = carbonScore;
     }
 }

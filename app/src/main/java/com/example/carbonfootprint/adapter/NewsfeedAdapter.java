@@ -2,6 +2,7 @@ package com.example.carbonfootprint.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,12 @@ import androidx.annotation.NonNull;
 import com.example.carbonfootprint.R;
 import com.example.carbonfootprint.model.NewsfeedModel;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewsfeedAdapter extends ArrayAdapter<NewsfeedModel> {
 
@@ -37,6 +41,7 @@ public class NewsfeedAdapter extends ArrayAdapter<NewsfeedModel> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.newsfeed_list, parent, false);
         }
         // Lookup view for data population
+        CircleImageView profilePicture = convertView.findViewById(R.id.imageNewsFeed);
         TextView name = convertView.findViewById(R.id.nameNewsFeed);
         TextView date = convertView.findViewById(R.id.date);
         TextView distance = convertView.findViewById(R.id.distance);
@@ -44,6 +49,9 @@ public class NewsfeedAdapter extends ArrayAdapter<NewsfeedModel> {
         TextView carbonScore = convertView.findViewById(R.id.carbon_score);
 
         // Populate the data into the template view using the data object
+        String personPhoto = model.getPhotoURI();
+        Picasso.get().setLoggingEnabled(true);
+        Picasso.get().load(personPhoto).into(profilePicture);
         name.setText(model.getName());
         date.setText(model.getDate());
         distance.setText(String.valueOf(model.getDistance()) + " km");
