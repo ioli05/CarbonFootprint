@@ -40,12 +40,12 @@ public class NewsFeedFragment extends Fragment {
 
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Tamara", 10, "Car", 10.7f));
-        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Tudor", 20, "Car", 6.7f));
-        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Vlad", 16.5f, "Bus", 9.7f));
-        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Diana", 8.7f, "Car", 15.7f));
-        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Ionela", 4.5f, "Train", 20.7f));
-        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Razvan", 6f, "Car", 5.7f));
+        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Tamara", 10, "Car", 10.7f, "", ""));
+        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Tudor", 20, "Car", 6.7f, "", ""));
+        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Vlad", 16.5f, "Bus", 9.7f, "", ""));
+        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Diana", 8.7f, "Car", 15.7f, "", ""));
+        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Ionela", 4.5f, "Train", 20.7f, "", ""));
+        arrayOfUsers.add(new NewsfeedModel(sdf.format(timestamp), "Razvan", 6f, "Car", 5.7f, "", ""));
         NewsfeedAdapter adapter = new NewsfeedAdapter(this.getActivity(), arrayOfUsers);
 
         // Attach the adapter to a ListView

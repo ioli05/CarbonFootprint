@@ -2,6 +2,7 @@ package com.example.carbonfootprint.helpers;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,8 +12,18 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.carbonfootprint.R;
+import com.example.carbonfootprint.model.NewsfeedModel;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Random;
 
 public class NewRouteDialog extends Dialog implements View.OnClickListener {
+
 
     public Activity c;
     private RadioGroup transportTypeRg;
@@ -46,8 +57,21 @@ public class NewRouteDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_route_yes:
+                GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(v.getContext());
+
+                String personName = acct.getDisplayName();
+                String personPhoto = acct.getPhotoUrl().toString();
+                String userId = acct.getId();
                 String transportType = getCheckedOptionTransportType(transportTypeRg.getCheckedRadioButtonId());
                 double distance = Double.parseDouble(distanceEt.getText().toString());
+
+                double carbonScore = calculateCarbonScore(transportType, distance);
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
+
+                NewsfeedModel routeDetails = new NewsfeedModel(sdf.format(timestamp), personName, distance, transportType, carbonScore, personPhoto, userId);
+
+                writeNewRoute(routeDetails);
                 Toast.makeText(c, transportType + " , " + distance, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.add_route_no:
@@ -57,6 +81,33 @@ public class NewRouteDialog extends Dialog implements View.OnClickListener {
                 break;
         }
         dismiss();
+    }
+
+    public static String random() {
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+        int randomLength = generator.nextInt(32);
+        char tempChar;
+        for (int i = 0; i < randomLength; i++){
+            tempChar = (char) (generator.nextInt(96) + 32);
+            randomStringBuilder.append(tempChar);
+        }
+        return randomStringBuilder.toString();
+    }
+
+    private void writeNewRoute(NewsfeedModel routeDetails) {
+        FirebaseFirestore mDb = FirebaseFirestore.getInstance();
+
+        mDb.collection("Routes")
+                .document()
+                .set(routeDetails)
+                .addOnSuccessListener(aVoid -> Toast.makeText(c, "great success", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(aVoid -> Toast.makeText(c, "loser", Toast.LENGTH_SHORT).show());
+    }
+
+    private double calculateCarbonScore(String transportType, double distance) {
+
+        return 30.56;
     }
 
     private String getCheckedOptionTransportType(int checkedId) {
