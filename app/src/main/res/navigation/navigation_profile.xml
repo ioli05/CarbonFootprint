@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@+id/navigation_profile_travel">
+
+    <fragment
+        android:id="@+id/navigation_profile_travel"
+        android:name="com.example.carbonfootprint.fragments.ProfileFragment$ProfileTravelFragment"
+        android:label="Travel"
+        tools:layout="@layout/fragment_profile_travel" />
+
+    <fragment
+        android:id="@+id/navigation_profile_consumption"
+        android:name="com.example.carbonfootprint.fragments.ProfileFragment$ProfileConsumptionFragment"
+        android:label="Consumption"
+        tools:layout="@layout/fragment_profile_consumption" />
+
+    <fragment
+        android:id="@+id/navigation_profile_badges"
+        android:name="com.example.carbonfootprint.fragments.ProfileFragment$ProfileBadgesFragment"
+        android:label="Badges"
+        tools:layout="@layout/fragment_profile_badges" />
+
+</navigation>
