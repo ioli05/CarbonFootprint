@@ -31,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
             Auth.signInWithGoogle(this);
             showProgressDialog("Signing in with Google. Please wait...");
         });
+
+        getSupportActionBar().hide();
     }
 
     @Override

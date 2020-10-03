@@ -2,28 +2,38 @@ package com.example.carbonfootprint.model;
 
 public class NewsfeedModel {
 
-    private String image;
     private String date;
     private String name;
-    private float distance;
+    private double distance;
     private String type;
-    private float carbonScore;
+    private double carbonScore;
+    private String photoURI;
+    private String userId;
 
-    public NewsfeedModel(String image, String date, String name, float distance, String type, float carbonScore) {
-        this.image = image;
+    public NewsfeedModel(String date, String name, double distance, String type, double carbonScore, String photoURI, String userId) {
         this.date = date;
         this.name = name;
         this.distance = distance;
         this.type = type;
         this.carbonScore = carbonScore;
+        this.photoURI = photoURI;
+        this.userId = userId;
     }
 
-    public String getImage() {
-        return image;
+    public String getPhotoURI() {
+        return photoURI;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPhotoURI(String photoURI) {
+        this.photoURI = photoURI;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getDate() {
@@ -42,7 +52,7 @@ public class NewsfeedModel {
         this.name = name;
     }
 
-    public float getDistance() {
+    public double getDistance() {
         return distance;
     }
 
@@ -58,7 +68,7 @@ public class NewsfeedModel {
         this.type = type;
     }
 
-    public float getCarbonScore() {
+    public double getCarbonScore() {
         return carbonScore;
     }
 

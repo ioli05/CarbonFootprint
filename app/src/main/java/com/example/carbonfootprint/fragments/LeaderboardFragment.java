@@ -44,12 +44,12 @@ public class LeaderboardFragment extends Fragment {
 
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        leaderboardModelArrayListTravel.add(new LeaderboardModel("" ,sdf.format(timestamp), "Tamara", 10, "Car", 10.7f));
-        leaderboardModelArrayListTravel.add(new LeaderboardModel("", sdf.format(timestamp), "Tudor", 20, "Car", 6.7f));
-        leaderboardModelArrayListTravel.add(new LeaderboardModel("", sdf.format(timestamp), "Vlad", 16.5f, "Bus", 9.7f));
-        leaderboardModelArrayListTravel.add(new LeaderboardModel("", sdf.format(timestamp),"Diana", 8.7f, "Car", 15.7f));
-        leaderboardModelArrayListTravel.add(new LeaderboardModel("", sdf.format(timestamp),"Ionela", 4.5f, "Train", 20.7f));
-        leaderboardModelArrayListTravel.add(new LeaderboardModel("", sdf.format(timestamp),"Razvan", 6f, "Car", 5.7f));
+//        leaderboardModelArrayListTravel.add(new LeaderboardModel(sdf.format(timestamp), "Tamara", 10, "Car", 10.7f, "", ""));
+//        leaderboardModelArrayListTravel.add(new LeaderboardModel(sdf.format(timestamp), "Tudor", 20, "Car", 6.7f), "", "");
+//        leaderboardModelArrayListTravel.add(new LeaderboardModel(sdf.format(timestamp), "Vlad", 16.5f, "Bus", 9.7f, ));
+//        leaderboardModelArrayListTravel.add(new LeaderboardModel( sdf.format(timestamp),"Diana", 8.7f, "Car", 15.7f));
+//        leaderboardModelArrayListTravel.add(new LeaderboardModel(sdf.format(timestamp),"Ionela", 4.5f, "Train", 20.7f));
+//        leaderboardModelArrayListTravel.add(new LeaderboardModel( sdf.format(timestamp),"Razvan", 6f, "Car", 5.7f));
 
 
         Collections.sort(leaderboardModelArrayListTravel, (o1, o2) -> o1.getDistance() > o2.getDistance() ? -1 : 1);
