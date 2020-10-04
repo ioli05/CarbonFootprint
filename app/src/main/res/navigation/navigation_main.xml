@@ -27,6 +27,6 @@
         android:id="@+id/navigation_leaderboard"
         android:name="com.example.carbonfootprint.fragments.LeaderboardFragment"
         android:label="Leaderboard"
-        tools:layout="@layout/fragment_leaderboard" />
+        tools:layout="@layout/fragment_leaderboard_travel" />
 
 </navigation>

@@ -5,10 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.fragment.app.Fragment;
 
 import com.example.carbonfootprint.R;
 import com.example.carbonfootprint.model.LeaderboardModel;
@@ -40,25 +38,25 @@ public class LeaderboardAdapter extends ArrayAdapter<LeaderboardModel> {
         // Lookup view for data population
         CircleImageView image = convertView.findViewById(R.id.image);
         TextView name = convertView.findViewById(R.id.nameNewsFeed);
-        TextView date = convertView.findViewById(R.id.date);
         TextView distance = convertView.findViewById(R.id.distance);
-        TextView type = convertView.findViewById(R.id.type);
         TextView carbonScore = convertView.findViewById(R.id.carbon_score);
-        Button badge = convertView.findViewById(R.id.badge);
+        ImageView badge = convertView.findViewById(R.id.image_badge);
 
         // Populate the data into the template view using the data object
         String personPhoto = model.getPhotoURI();
         Picasso.get().setLoggingEnabled(true);
         Picasso.get().load(personPhoto).into(image);
         name.setText(model.getName());
-        date.setText(model.getTimestamp().toString());
         distance.setText(String.valueOf(model.getDistance()) + " km");
-        type.setText(model.getType());
 
-        if (position < 3) {
-            badge.setVisibility(View.VISIBLE);
-            badge.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_medal, 0, 0, 0);
-
+        if (position == 0) {
+           badge.setImageResource(R.drawable.gold_medal);
+        }
+        if (position == 1) {
+           badge.setImageResource(R.drawable.silver_medal);
+        }
+        if (position == 2) {
+           badge.setImageResource(R.drawable.bronze_medal);
         }
 
         carbonScore.setText(String.valueOf(model.getCarbonScore()));

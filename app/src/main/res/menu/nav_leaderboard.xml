@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_profile_travel"
+        android:title="Travel"
+        android:icon="@drawable/ic_travel" />
+    <item
+        android:id="@+id/navigation_profile_consumption"
+        android:title="Consumption"
+        android:icon="@drawable/ic_consumption"
+        />
+</menu>

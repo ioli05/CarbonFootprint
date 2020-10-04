@@ -20,59 +20,57 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_weight="1">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image"
-                    android:layout_width="60dp"
-                    android:paddingLeft="3dp"
+                    android:layout_width="50dp"
                     android:paddingTop="3dp"
+                    android:layout_weight="0.15"
                     android:layout_height="60dp"
                     android:src="@drawable/download"
                     android:scaleType="centerCrop"/>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:id="@+id/nameNewsFeed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
-                        android:padding="2dp"
                         android:text="Medium Text"
+                        android:textSize="20dp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#4d4d4d"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="cdjenfcjedn"
-                        android:id="@+id/date"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:paddingLeft="2dp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.49"
-                    android:gravity="center_vertical">
+                    android:layout_weight="0.2"
+                    android:gravity=" bottom | center ">
 
-                    <Button
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:gravity="center_horizontal"
-                        android:background="#FFFFFF"
-                        android:drawable="@drawable/ic_android_black_24dp"
-                        android:visibility="invisible"
-                        android:id="@+id/badge" />
+                    <ImageView
+                        android:id="@+id/image_badge"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="bottom"/>
+<!--                    <Button-->
+<!--                        android:layout_width="50dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:gravity="center_horizontal"-->
+<!--                        android:background="#FFFFFF"-->
+<!--                        android:drawable="@drawable/ic_android_black_24dp"-->
+<!--                        android:visibility="invisible"-->
+<!--                        android:id="@+id/badge" />-->
                 </LinearLayout>
 
 
@@ -109,29 +107,6 @@
                         android:textSize="19dp"
                         android:layout_weight="0.33"/>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_weight="0.33">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Type"
-                        android:gravity="center_horizontal"
-                        android:layout_weight="0.33"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/type"
-                        android:text="Car"
-                        android:textStyle="bold"
-                        android:textColor="#4d4d4d"
-                        android:gravity="center_horizontal"
-                        android:textSize="19dp"
-                        android:layout_weight="0.33"/>
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -142,7 +117,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Carbon Score"
+                        android:text="Average Carbon Score"
                         android:gravity="center_horizontal"
                         android:layout_weight="0.33"/>
                     <TextView

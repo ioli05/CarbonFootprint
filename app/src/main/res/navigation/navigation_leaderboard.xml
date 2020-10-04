@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_leaderboard"
+    app:startDestination="@+id/navigation_leaderboard_consumption">
+
+    <fragment
+        android:id="@+id/navigation_leaderboard_travel"
+        android:name="com.example.carbonfootprint.fragments.LeaderboardFragment$LeaderboardTravelFragment"
+        android:label="Travel"
+        tools:layout="@layout/fragment_leaderboard_travel" />
+
+    <fragment
+        android:id="@+id/navigation_leaderboard_consumption"
+        android:name="com.example.carbonfootprint.fragments.LeaderboardFragment$LeaderboardConsumptionFragment"
+        android:label="Consumption"
+        tools:layout="@layout/fragment_leaderboard_consumption" />
+</navigation>
