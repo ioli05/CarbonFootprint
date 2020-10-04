@@ -18,6 +18,8 @@ import com.example.carbonfootprint.helpers.NewsfeedModelComparator;
 import com.example.carbonfootprint.listeners.AddRouteListener;
 import com.example.carbonfootprint.model.NewsfeedModel;
 import com.example.carbonfootprint.services.DatabaseService;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -57,6 +59,9 @@ public class NewsFeedFragment extends Fragment {
             adapter.notifyDataSetChanged();
         });
 
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this.getContext());
+
+        String username = acct.getDisplayName();
         FirebaseFirestore.getInstance()
                 .collection("Routes")
                 .get()
@@ -68,7 +73,10 @@ public class NewsFeedFragment extends Fragment {
                             for(DocumentSnapshot document : myListOfDocuments){
                                 NewsfeedModel newsfeedModel = document.toObject(NewsfeedModel.class);
 
-                                arrayOfRoutes.add(newsfeedModel);
+
+                                if(!newsfeedModel.getName().equals(username)){
+                                    arrayOfRoutes.add(newsfeedModel);
+                                }
                                 Log.d(TAG, "onComplete: " + document);
                             }
 

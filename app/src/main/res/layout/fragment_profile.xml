@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:layout_height="150dp"
         android:background="#FFFFFF"
         android:padding="20dp">
 
@@ -27,22 +27,21 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerVertical="true"
-            android:contentDescription="TODO" />
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_centerVertical="true" />
 
         <TextView
             android:id="@+id/full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="30dp"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/profile_image"
             android:fontFamily="sans-serif"
             android:includeFontPadding="false"
             android:text="@string/hint_fullname"
-            android:textColor="@color/colorAccent"
+            android:textColor="#4d4d4d"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:ignore="RelativeOverlap" />
@@ -53,7 +52,7 @@
             android:layout_height="14dp"
             android:layout_below="@+id/full_name"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/profile_image"
             android:src="@drawable/ic_romania" />
 
@@ -67,6 +66,7 @@
             android:layout_toEndOf="@+id/profile_country"
             android:fontFamily="sans-serif"
             android:includeFontPadding="false"
+            android:layout_marginTop="10dp"
             android:text="Bucharest, Romania"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp" />
@@ -84,7 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark"
+            android:layout_marginBottom="-2dp"
+            android:background="@color/colorPrimary"
             android:fitsSystemWindows="true"
             app:itemIconTint="@drawable/nav_profile_selector"
             app:itemTextColor="@drawable/nav_profile_selector"
@@ -109,7 +110,6 @@
             android:id="@+id/list_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
             android:divider="@null"
             android:dividerHeight="0dp" />
     </RelativeLayout>
