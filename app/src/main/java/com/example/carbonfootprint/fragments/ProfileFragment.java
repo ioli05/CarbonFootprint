@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.carbonfootprint.R;
@@ -41,6 +42,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
     private static final String TAG = "ProfileFragment";
+    private static final String BACK_STACK_ROOT_TAG = "root_fragment";
+
 
     public static class ProfileTravelFragment extends Fragment {
         @Nullable
@@ -64,24 +67,21 @@ public class ProfileFragment extends Fragment {
             FirebaseFirestore.getInstance()
                     .collection("Routes")
                     .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
-                                for(DocumentSnapshot document : myListOfDocuments){
-                                    NewsfeedModel newsfeedModel = document.toObject(NewsfeedModel.class);
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
+                            for(DocumentSnapshot document : myListOfDocuments){
+                                NewsfeedModel newsfeedModel = document.toObject(NewsfeedModel.class);
 
-                                    if(newsfeedModel.getName().equals(username)){
-                                        arrayOfRoutes.add(newsfeedModel);
-                                    }
+                                if(newsfeedModel.getName().equals(username)){
+                                    arrayOfRoutes.add(newsfeedModel);
                                 }
-
-                                Collections.sort(arrayOfRoutes, new NewsfeedModelComparator());
-                                adapter.notifyDataSetChanged();
-                                ListView listView = getActivity().findViewById(R.id.list_profile);
-                                listView.setAdapter(adapter);
                             }
+
+                            Collections.sort(arrayOfRoutes, new NewsfeedModelComparator());
+                            adapter.notifyDataSetChanged();
+                            ListView listView = getActivity().findViewById(R.id.list_profile);
+                            listView.setAdapter(adapter);
                         }
                     });
 
@@ -135,16 +135,20 @@ public class ProfileFragment extends Fragment {
             BottomNavigationView navView = view.findViewById(R.id.nav_profile_view);
             // Passing each menu ID as a set of Ids because each
             // menu should be considered as top level destinations.
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
             navView.setOnNavigationItemSelectedListener(menuItem -> {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_profile_travel:
+                        fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         openFragment(new ProfileTravelFragment());
                         return true;
                     case R.id.navigation_profile_consumption:
+                        fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         openFragment(new ProfileConsumptionFragment());
                         return true;
                     case R.id.navigation_profile_badges:
+                        fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         openFragment(new ProfileBadgesFragment());
                         return true;
                 }
