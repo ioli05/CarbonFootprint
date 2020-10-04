@@ -53,7 +53,7 @@ public class NewsFeedFragment extends Fragment {
 
         DatabaseService databaseService = DatabaseService.getInstance();
         databaseService.setAddRouteListener(newsfeedModel -> {
-            arrayOfRoutes.add(newsfeedModel);
+            arrayOfRoutes.add(0, newsfeedModel);
             adapter.notifyDataSetChanged();
         });
 
