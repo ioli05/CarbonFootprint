@@ -3,9 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="240dp">
 
-    <ImageView
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/romania_data_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/graph_1" />
+        android:src="@drawable/graph_1"
+        />
 
 </LinearLayout>
