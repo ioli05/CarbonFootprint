@@ -8,6 +8,7 @@
     tools:context=".activities.LoginActivity">
 
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
@@ -15,13 +16,22 @@
         android:layout_marginTop="60dp"
         android:src="@drawable/logo_grey" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="Make your footprint greener!"
+        android:textColor="@android:color/white" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
-        android:src="@drawable/mascota_pointing" />
+        android:src="@drawable/carby_neutral_pose" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/login_google_sign_in_btn"
