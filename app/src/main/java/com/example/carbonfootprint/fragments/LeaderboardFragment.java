@@ -1,14 +1,11 @@
 package com.example.carbonfootprint.fragments;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,27 +14,23 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.carbonfootprint.R;
 import com.example.carbonfootprint.adapter.LeaderboardAdapter;
-import com.example.carbonfootprint.helpers.Auth;
 import com.example.carbonfootprint.model.LeaderboardModel;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class LeaderboardFragment extends Fragment {
 
-
     private static final String TAG = "LeaderboardFragment";
+
+    private static DecimalFormat twoDForm = new DecimalFormat("#.##");
 
     public static class LeaderboardTravelFragment extends Fragment {
         private ArrayList<LeaderboardModel> leaderboardModelArrayListTravel;
@@ -73,13 +66,12 @@ public class LeaderboardFragment extends Fragment {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
-                            for(DocumentSnapshot document : myListOfDocuments){
+                            for (DocumentSnapshot document : myListOfDocuments) {
                                 LeaderboardModel newsfeedModel = document.toObject(LeaderboardModel.class);
 
                                 if (!map.containsKey(newsfeedModel.getName())) {
                                     map.put(newsfeedModel.getName(), newsfeedModel);
-                                }
-                                else {
+                                } else {
                                     LeaderboardModel model = map.get(newsfeedModel.getName());
                                     model.setDistance(model.getDistance() + newsfeedModel.getDistance());
                                     model.setCarbonScore(model.getCarbonScore() + newsfeedModel.getCarbonScore());
@@ -89,10 +81,12 @@ public class LeaderboardFragment extends Fragment {
                                 Log.d(TAG, "onComplete: " + document);
                             }
                             for (String name : map.keySet()) {
-                                leaderboardModelArrayListTravel.add(map.get(name));
+                                LeaderboardModel model = map.get(name);
+                                model.setCarbonScore(Double.parseDouble(twoDForm.format(model.getCarbonScore() / model.getDistance())));
+                                leaderboardModelArrayListTravel.add(model);
                             }
 
-                            Collections.sort(leaderboardModelArrayListTravel, (o1, o2) -> o1.getDistance() > o2.getDistance() ? -1 : 1);
+                            Collections.sort(leaderboardModelArrayListTravel, (o1, o2) -> (int) (100 * (o1.getCarbonScore() - o2.getCarbonScore())));
                             adapter.notifyDataSetChanged();
                             ListView listView = getView().findViewById(R.id.listLeaderboard);
                             listView.setAdapter(adapter);
@@ -113,6 +107,7 @@ public class LeaderboardFragment extends Fragment {
             return view;
         }
     }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
