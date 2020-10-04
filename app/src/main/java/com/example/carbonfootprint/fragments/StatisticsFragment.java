@@ -14,6 +14,7 @@ import com.example.carbonfootprint.R;
 
 public class StatisticsFragment extends Fragment {
 
+    private static final String TAG = "StatisticsFragment";
     private View romania;
     private View europe;
     private View world;
@@ -29,7 +30,7 @@ public class StatisticsFragment extends Fragment {
         findViews();
 
         romania.setOnClickListener(v -> {
-                    AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                             .setTitle("Romania Carbon Emissions compared to world averages")
                             .setView(LayoutInflater.from(getActivity()).inflate(R.layout.romania_data, null))
                             .setCancelable(true)
